@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PROPOSE_HELP=$(cat <<HELP_MESSAGE
+PROPOSE_HELP=$(cat <<HELP_MESSAGE
 ${PROPOSE_HELP}
 
 s  -> git branch && git status && git stash list
