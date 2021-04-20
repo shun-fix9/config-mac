@@ -1,0 +1,6 @@
+[user]
+    useConfigOnly = true
+[alias]
+    br = branch
+    rs = restore
+    sw = switch
