@@ -4,3 +4,5 @@
     br = branch
     rs = restore
     sw = switch
+[credential]
+    helper = store
