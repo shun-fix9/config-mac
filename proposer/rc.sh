@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/zsh
 
-PROPOSE_HELP=$(cat <<HELP_MESSAGE
-${PROPOSE_HELP}
+PROPOSE_ORIGINAL_HELP=$PROPOSE_HELP
+PROPOSE_HELP=${PROPOSE_ORIGINAL_HELP}$(cat <<"HELP_MESSAGE"
+
 
 s  -> git branch && git status && git stash list
 a  -> git add -A .
@@ -20,38 +21,50 @@ HELP_MESSAGE
 )
 
 propose_cmd_s(){
+    propose_zle_clear
     git branch && git status && git stash list
 }
 propose_cmd_a(){
+    propose_zle_clear
     git add -A .
 }
 propose_cmd_r(){
+    propose_zle_clear
     git reset
 }
 propose_cmd_o(){
+    propose_zle_clear
     git fetch --prune origin && git switch --detach origin/HEAD
 }
 propose_cmd_m(){
+    propose_zle_clear
     git merge origin/$(git parent)
 }
 propose_cmd_up(){
+    propose_zle_clear
     git parent-sync
 }
 
 propose_cmd_c(){
-    propose_read_and_run 'git request-to-parent "$1"'
+    BUFFER='git request-to-parent ""'
+    CURSOR=23
 }
 propose_cmd_pub(){
+    propose_zle_clear
     git pub
 }
 propose_cmd_post(){
-    propose_read_and_run 'git post "$1" $(git parent)'
+    BUFFER='git post "" $(git parent)'
+    CURSOR=10
 }
 propose_cmd_x(){
+    propose_zle_clear
     git check-full-merged-into-parent-branch && git switch-parent-branch && git wipe-deleted-branch
 }
 
 propose_cmd_setup(){
+    propose_zle_clear
+
     # setup name/email
     local name
     local email
